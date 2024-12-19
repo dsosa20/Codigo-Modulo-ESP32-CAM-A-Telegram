@@ -8,12 +8,12 @@
 #include <ArduinoJson.h>
 
 // Wi-Fi credentials
-const char* ssid = "SOFTWARE1";
-const char* password = "D@nt3SOFTW1";
+const char* ssid = "**********************************";
+const char* password = "**********************************";
 
 // Telegram BOT Token and Chat ID
-String BOTtoken = "6577894024:AAGyIiSGMHO_jHSJ3wH5WPoSnL72OTPOhwc";
-String CHAT_ID = "6379408447";
+String BOTtoken = "**********************************";
+String CHAT_ID = "**********************************";
 
 // Flags
 bool sendPhoto = false;
@@ -24,11 +24,10 @@ WiFiClientSecure clientTCP;
 UniversalTelegramBot bot(BOTtoken, clientTCP);
 
 #define FLASH_LED_PIN 4
-#define PIR_SENSOR_PIN 13  // Pin where the PIR sensor is connected
+#define PIR_SENSOR_PIN 13  
 
 bool flashState = LOW;
 
-// Checks for new messages every 1 second
 int botRequestDelay = 1000;
 unsigned long lastTimeBotRan;
 
@@ -74,14 +73,13 @@ void configInitCamera() {
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
 
-  // Initialize with high specs to pre-allocate larger buffers
   if (psramFound()) {
     config.frame_size = FRAMESIZE_UXGA;
-    config.jpeg_quality = 10;  // 0-63 lower number means higher quality
+    config.jpeg_quality = 10;  
     config.fb_count = 2;
   } else {
     config.frame_size = FRAMESIZE_SVGA;
-    config.jpeg_quality = 12;  // 0-63 lower number means higher quality
+    config.jpeg_quality = 12;  
     config.fb_count = 1;
   }
   
@@ -232,7 +230,7 @@ void setup() {
   Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
-  clientTCP.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
+  clientTCP.setCACert(TELEGRAM_CERTIFICATE_ROOT);
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
@@ -271,7 +269,7 @@ void loop() {
   motionDetected = digitalRead(PIR_SENSOR_PIN);
   if (motionDetected) {
     sendPhotoTelegram();
-    delay(10000);  // Prevents multiple triggers in quick succession
+    delay(10000); 
   }
 
   if (sendPhoto) {
